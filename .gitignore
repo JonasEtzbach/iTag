@@ -11,7 +11,10 @@ nbactions.xml
 build.xml
 
 # maven
-target/
+target/classes
+target/maven-archiver
+target/maven-status
+target/test-classes
 dependency-reduced-pom.xml
 
 # vim
