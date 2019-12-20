@@ -38,11 +38,11 @@
     </distributionManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>3.6.3-SNAPSHOT</version>
-            <scope>compile</scope>
+		<dependency>
+			<groupId>com.comphenix.protocol</groupId>
+			<artifactId>ProtocolLib</artifactId>
+			<version>4.4.0</version>
+			<scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
