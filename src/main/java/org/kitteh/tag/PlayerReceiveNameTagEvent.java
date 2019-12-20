@@ -1,53 +1,52 @@
 package org.kitteh.tag;
 
+import com.google.common.base.Preconditions;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
-import com.google.common.base.Preconditions;
+public class PlayerReceiveNameTagEvent extends PlayerEvent
+{
 
-import lombok.Getter;
+    private static final HandlerList handlers = new HandlerList();
+    /*========================================================================*/
+    @Getter
+    private final Player namedPlayer;
+    @Getter
+    private String tag;
+    @Getter
+    private boolean modified;
 
-public class PlayerReceiveNameTagEvent extends PlayerEvent {
+    public PlayerReceiveNameTagEvent(Player who, Player namedPlayer, String initialName)
+    {
+        super( who );
+        Preconditions.checkNotNull( who, "who" );
+        Preconditions.checkNotNull( namedPlayer, "namedPlayer" );
+        Preconditions.checkNotNull( initialName, "initialName" );
 
-	private static final HandlerList handlers = new HandlerList();
-	/* ======================================================================== */
-	@Getter
-	private final Player namedPlayer;
-	@Getter
-	private String tag;
-	@Getter
-	private boolean modified;
+        this.namedPlayer = namedPlayer;
+        this.tag = initialName;
+    }
 
-	public PlayerReceiveNameTagEvent(Player who, Player namedPlayer, String initialName) {
-		super(who);
-		Preconditions.checkNotNull(who, "who");
-		Preconditions.checkNotNull(namedPlayer, "namedPlayer");
-		Preconditions.checkNotNull(initialName, "initialName");
+    public boolean setTag(String tag)
+    {
+        Preconditions.checkNotNull( tag, "tag" );
 
-		this.namedPlayer = namedPlayer;
-		this.tag = initialName;
-	}
+        this.tag = tag;
+        this.modified = true;
 
-	public boolean setTag(String tag) {
-		Preconditions.checkNotNull(tag, "tag");
+        return tag.length() < 16;
+    }
 
-		this.tag = tag;
-		this.modified = true;
+    @Override
+    public HandlerList getHandlers()
+    {
+        return handlers;
+    }
 
-		return tag.length() < 16;
-	}
-
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
-
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
-
-	public String getTag() {
-		return tag;
-	}
+    public static HandlerList getHandlerList()
+    {
+        return handlers;
+    }
 }
